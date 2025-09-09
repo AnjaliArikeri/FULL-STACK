@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .temp {
+      border: 2px solid black;
+      width: 40%;
+      padding: 20px;
+      background-color: #3cf981;
+      box-shadow: 0px 4px 8px rgba(37, 13, 13, 0.79);
+    }
+
+    .temp h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0c0d28;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 15px;
+    }
+
+    .form label {
+      font-weight: bold;
+      align-self: center;
+    }
+
+    .form input, 
+    .form select {
+      padding: 8px;
+      border: 1px solid #0c0d28;
+      border-radius: 20px;
+      width: 100%;
+    }
+
+    .form .gender-options {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    button {
+      grid-column: span 2;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      background: hsl(26, 86%, 56%);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #1b5dbf;
+    }
+
+    /* Error Message */
+    .error {
+      grid-column: span 2;
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Responsive stacking for mobile */
+    @media (max-width: 768px) {
+      .form {
+        grid-template-columns: 1fr;
+      }
+      button {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="temp">
+    <h2>Student Register Form</h2>
+    <form class="form" id="registerForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="course">Course Selection</label>
+      <select id="course" name="course" required>
+        <option value="">-- Select a Course --</option>
+        <option value="IQTA">Quantum Computing</option>
+        <option value="JAVA">Java</option>
+        <option value="NLP">Natural Language Processing</option>
+        <option value="AI">Artificial Intelligence</option>
+      </select>
+
+      <label>Gender</label>
+      <div class="gender-options">
+        <input type="radio" id="male" name="gender" value="Male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female" required>
+        <label for="female">Female</label>
+      </div>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+
+      <div id="errorMessage" class="error"></div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const errorDiv = document.getElementById("errorMessage");
+
+    // Load already registered emails from localStorage
+    let registeredUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+
+      // Check if email already exists
+      if (registeredUsers.includes(email)) {
+        errorDiv.textContent = "⚠️ This email is already registered!";
+        return;
+      }
+
+      // Otherwise, save email to localStorage
+      registeredUsers.push(email);
+      localStorage.setItem("users", JSON.stringify(registeredUsers));
+
+      errorDiv.style.color = "green";
+      errorDiv.textContent = "✅ Registered Successfully!";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
