@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style> 
+            h1{
+                color: red;
+                font-weight: bold;
+                background-color: aqua;
+            }
+            h2{
+                color:aqua;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                background-color: black;
+            }
+            button{
+                color: blue;
+                padding-left: 2cap;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <h1>Adding Items</h1>
+        <br>
+        <br>
+    <h2>Enter your lists</h2>
+        <ul id="list">
+        <li>task1</li>
+        <li>task2</li>
+        <li>task3</li>
+        </ul>
+        <input type="text" id="myInput">
+
+        <button id="add" placeholder="add">Add Item</button>
+        </div>
+    </body>
+</html>
+<script>
+$(document).ready(function(){
+        $("#add").click(function(){
+            let task=$("#myInput").val();
+            if(task){
+                $("#list").append("<li>" + task +  "</li>");
+                $("#myInput").val('');
+               
+            }
+            
+        });
+
+    });
+</script>
