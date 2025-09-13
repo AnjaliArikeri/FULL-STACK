@@ -16,21 +16,26 @@ for(i=10;i<=90;i+=10){
 }
 distance=distance+speed/10;
 console.log(distance)
+
+
+
+
 // The basic pay of an auto is 30rs for 4km for the next 5km the price is 10rs for the next 10km the price is 15 if the kms are more the price will be 20rs.User travelled 19.5km what will be the price?
-function calculateFare(distance) {
-    let fare = 0;
+
+function calculatePrice(distance) {
+    let price = 0;
 
     if (distance <= 4) {
-        fare = 30;  // Base fare for first 4 km
+        price = 30;  
     } else if (distance <= 9) {
-        fare = 30 + (distance - 4) * 10;
+        price = 30 + (distance - 4) * 10;
     } else if (distance <= 19) {
-        fare = 30 + (5 * 10) + (distance - 9) * 15;
+        price = 30 + (5 * 10) + (distance - 9) * 15;
     } else {
-        fare = 30 + (5 * 10) + (10 * 15) + (distance - 19) * 20;
+        price = 30 + (5 * 10) + (10 * 15) + (distance - 19) * 20;
     }
 
-    return fare;
+    return price;
 }
 let distanceTravelled = 19.5;
-console.log("Total Fare: " + calculateFare(distanceTravelled)+"rs");
+console.log("Total Price: " + calculatePrice(distanceTravelled)+ "rs");
